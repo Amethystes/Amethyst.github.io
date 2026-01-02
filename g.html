@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Games</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+
+body{
+  font-family:Inter,system-ui,sans-serif;
+  background:linear-gradient(180deg,#030006,#09001a);
+  color:#f5f3ff;
+  overflow:auto;
+}
+
+.grid{
+  padding:34px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:30px;
+}
+
+.card{
+  position:relative;
+  height:170px;
+  border-radius:26px;
+  overflow:hidden;
+  cursor:pointer;
+  background:#000;
+  box-shadow:
+    inset 0 0 40px #7c3aed55,
+    0 25px 70px rgba(0,0,0,.85);
+  transition:.28s cubic-bezier(.2,.8,.2,1);
+}
+
+.card:hover{
+  transform:translateY(-6px) scale(1.035);
+  box-shadow:
+    inset 0 0 80px #c084fcaa,
+    0 40px 100px rgba(0,0,0,.95);
+}
+
+.card img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,transparent 35%,rgba(10,2,25,.92));
+  display:flex;
+  align-items:flex-end;
+  padding:18px;
+}
+
+.text{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.title{
+  font-weight:800;
+  font-size:1rem;
+  letter-spacing:.12em;
+  text-shadow:0 0 20px #c084fc;
+}
+
+.tag{
+  font-size:.72rem;
+  opacity:.7;
+  letter-spacing:.18em;
+}
+
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-thumb{
+  background:#7c3aedaa;
+  border-radius:999px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="grid">
+
+<div class="card" onclick="parent.openGame('Retro Bowl','Retrobowl.html')"><img src="retro_bowl_logo.png"><div class="overlay"><div class="text"><div class="title">RETRO BOWL</div><div class="tag">SPORTS</div></div></div></div>
+<div class="card" onclick="parent.openGame('Cookie Clicker','cookieclicker.html')"><img src="cookie.png"><div class="overlay"><div class="text"><div class="title">COOKIE CLICKER</div><div class="tag">IDLE</div></div></div></div>
+<div class="card" onclick="parent.openGame('Slope','Slope.html')"><img src="Slope.png"><div class="overlay"><div class="text"><div class="title">SLOPE</div><div class="tag">ARCADE</div></div></div></div>
+<div class="card" onclick="parent.openGame('Granny','granny.html')"><img src="granny.png"><div class="overlay"><div class="text"><div class="title">GRANNY</div><div class="tag">HORROR</div></div></div></div>
+<div class="card" onclick="parent.openGame('Bloodmoney','Bloodmoney.html')"><img src="Bloodmoney.png"><div class="overlay"><div class="text"><div class="title">BLOOD MONEY</div><div class="tag">ACTION</div></div></div></div>
+<div class="card" onclick="parent.openGame('Burrito','burrito.html')"><img src="burrito.png"><div class="overlay"><div class="text"><div class="title">BURRITO</div><div class="tag">FUNNY</div></div></div></div>
+<div class="card" onclick="parent.openGame('Crazy Cattle 3D','Crazycattle3d.html')"><img src="Crazycattle3d.png"><div class="overlay"><div class="text"><div class="title">CRAZY CATTLE 3D</div><div class="tag">3D</div></div></div></div>
+
+<div class="card" onclick="parent.openGame('Baldis Basics','Baldi1.html')"><img src="baldi1.png"><div class="overlay"><div class="text"><div class="title">BALDI’S BASICS</div><div class="tag">HORROR</div></div></div></div>
+<div class="card" onclick="parent.openGame('Baldis Basics Classic Remastered','Baldi2.html')"><img src="baldi2.png"><div class="overlay"><div class="text"><div class="title">BALDI CLASSIC</div></div></div></div>
+<div class="card" onclick="parent.openGame('Baldis Basics Plus','Baldi3.html')"><img src="baldi3.png"><div class="overlay"><div class="text"><div class="title">BALDI PLUS</div></div></div></div>
+
+<div class="card" onclick="parent.openGame('Basketrandom','Basketrandom.html')"><img src="Basketrandom.png"><div class="overlay"><div class="text"><div class="title">BASKET RANDOM</div></div></div></div>
+<div class="card" onclick="parent.openGame('Boxing Random','Boxingrandom.html')"><img src="Boxingrandom.png"><div class="overlay"><div class="text"><div class="title">BOXING RANDOM</div></div></div></div>
+<div class="card" onclick="parent.openGame('Basketbros','Basketbros.html')"><img src="Basketbros.png"><div class="overlay"><div class="text"><div class="title">BASKETBROS</div></div></div></div>
+<div class="card" onclick="parent.openGame('Footballbros','Footballbros.html')"><img src="Footballbros.png"><div class="overlay"><div class="text"><div class="title">FOOTBALLBROS</div></div></div></div>
+
+<div class="card" onclick="parent.openGame('ULTRAKILL','ultrakill.html')"><img src="ultrakill.png"><div class="overlay"><div class="text"><div class="title">ULTRAKILL</div></div></div></div>
+<div class="card" onclick="parent.openGame('Minecraft','Minecraft.html')"><img src="Minecraft.png"><div class="overlay"><div class="text"><div class="title">MINECRAFT</div></div></div></div>
+<div class="card" onclick="parent.openGame('Brotato','Brotato.html')"><img src="Brotato.png"><div class="overlay"><div class="text"><div class="title">BROTATO</div></div></div></div>
+<div class="card" onclick="parent.openGame('Capybara Clicker','Capybaraclicker.html')"><img src="Capybaraclicker.png"><div class="overlay"><div class="text"><div class="title">CAPYBARA CLICKER</div></div></div></div>
+
+<div class="card" onclick="parent.openGame('Block Blast','Blockblast.html')"><img src="Blockblast.png"><div class="overlay"><div class="text"><div class="title">BLOCK BLAST</div></div></div></div>
+<div class="card" onclick="parent.openGame('OvO','OVO.html')"><img src="OVO.png"><div class="overlay"><div class="text"><div class="title">OVO</div></div></div></div>
+<div class="card" onclick="parent.openGame('OvO 2','OvO 2.html')"><img src="Ovo 2.png"><div class="overlay"><div class="text"><div class="title">OVO 2</div></div></div></div>
+<div class="card" onclick="parent.openGame('OvO 3','oVo3.html')"><img src="oVo3.png"><div class="overlay"><div class="text"><div class="title">OVO 3</div></div></div></div>
+
+<div class="card" onclick="parent.openGame('Idle Breakout','idlr.html')"><img src="idlr.png"><div class="overlay"><div class="text"><div class="title">IDLE BREAKOUT</div></div></div></div>
+<div class="card" onclick="parent.openGame('Idle Miner Empire','Idleminer.html')"><img src="Idleminer.png"><div class="overlay"><div class="text"><div class="title">IDLE MINER EMPIRE</div></div></div></div>
+
+<div class="card" onclick="parent.openGame('Bad Time Simulator','Badmondaysim.html')"><img src="Badmondaysim.png"><div class="overlay"><div class="text"><div class="title">BAD TIME SIMULATOR</div></div></div></div>
+<div class="card" onclick="parent.openGame('Ragdoll Hit','Ragdollhit.html')"><img src="Ragdollhit.png"><div class="overlay"><div class="text"><div class="title">RAGDOLL HIT</div></div></div></div>
+<div class="card" onclick="parent.openGame('Cluster Rush','Cluster.html')"><img src="Cluster.png"><div class="overlay"><div class="text"><div class="title">CLUSTER RUSH</div></div></div></div>
+<div class="card" onclick="parent.openGame('Hollow Knight','Hollowknight.html')"><img src="Hollowknight.png"><div class="overlay"><div class="text"><div class="title">HOLLOW KNIGHT</div></div></div></div>
+
+<div class="card" onclick="parent.openGame('Granny 2','Granny2.html')"><img src="Granny2.png"><div class="overlay"><div class="text"><div class="title">GRANNY 2</div></div></div></div>
+<div class="card" onclick="parent.openGame('Granny 3','Granny3.html')"><img src="Granny3.png"><div class="overlay"><div class="text"><div class="title">GRANNY 3</div></div></div></div>
+
+<div class="card" onclick="parent.openGame('Geometry Dash','Geometry dash.html')"><img src="Geometry dash.png"><div class="overlay"><div class="text"><div class="title">GEOMETRY DASH</div></div></div></div>
+<div class="card" onclick="parent.openGame('Snow Rider 3D','Snow rider 3d.html')"><img src="Snow rider 3d.png"><div class="overlay"><div class="text"><div class="title">SNOW RIDER 3D</div></div></div></div>
+<div class="card" onclick="parent.openGame('Monkey Mart','Monkeymart.html')"><img src="Monkeymart.png"><div class="overlay"><div class="text"><div class="title">MONKEY MART</div></div></div></div>
+
+<div class="card" onclick="parent.openGame('FNAF 1','Fnaf1.html')"><img src="Fnaf1.png"><div class="overlay"><div class="text"><div class="title">FNAF 1</div></div></div></div>
+<div class="card" onclick="parent.openGame('FNAF 2','Fnaf2.html')"><img src="Fnaf2.png"><div class="overlay"><div class="text"><div class="title">FNAF 2</div></div></div></div>
+<div class="card" onclick="parent.openGame('FNAF 3','Fnaf3.html')"><img src="Fnaf3.png"><div class="overlay"><div class="text"><div class="title">FNAF 3</div></div></div></div>
+<div class="card" onclick="parent.openGame('FNAF 4','Fnaf4.html')"><img src="Fnaf4.png"><div class="overlay"><div class="text"><div class="title">FNAF 4</div></div></div></div>
+
+<div class="card" onclick="parent.openGame('Ragdoll Archers','Ragdollarchers.html')"><img src="Ragdollarchers.png"><div class="overlay"><div class="text"><div class="title">RAGDOLL ARCHERS</div></div></div></div>
+<div class="card" onclick="parent.openGame('Drive Mad','Drive mad.html')"><img src="Drive mad.png"><div class="overlay"><div class="text"><div class="title">DRIVE MAD</div></div></div></div>
+<div class="card" onclick="parent.openGame('Coreball','Coreball.html')"><img src="Coreball.png"><div class="overlay"><div class="text"><div class="title">COREBALL</div></div></div></div>
+<div class="card" onclick="parent.openGame('Paparapa the Rappa','Paparapa.html')"><img src="Paparapa.png"><div class="overlay"><div class="text"><div class="title">PAPARAPA THE RAPPA</div></div></div></div>
+<div class="card" onclick="parent.openGame('Bitlife','Bitlife.html')"><img src="Bitlife.png"><div class="overlay"><div class="text"><div class="title">BITLIFE</div></div></div></div>
+<div class="card" onclick="parent.openGame('Bowmasters','Bowmasters.html')"><img src="Bowmasters.png"><div class="overlay"><div class="text"><div class="title">BOWMASTERS</div></div></div></div>
+<div class="card" onclick="parent.openGame('Doge Miner','Doge miner.html')"><img src="Doge miner.png"><div class="overlay"><div class="text"><div class="title">DOGE MINER</div></div></div></div>
+<div class="card" onclick="parent.openGame('Elastic Man','Elastic.html')"><img src="Elastic.png"><div class="overlay"><div class="text"><div class="title">ELASTIC MAN</div></div></div></div>
+<div class="card" onclick="parent.openGame('Gobble','Gobble.html')"><img src="Gobble.png"><div class="overlay"><div class="text"><div class="title">GOBBLE</div></div></div></div>
+<div class="card" onclick="parent.openGame('Escape Road','Escape road.html')"><img src="Escape road.png"><div class="overlay"><div class="text"><div class="title">ESCAPE ROAD</div></div></div></div>
+<div class="card" onclick="parent.openGame('People Playground','People playground.html')"><img src="People playground.png"><div class="overlay"><div class="text"><div class="title">PEOPLE PLAYGROUND</div></div></div></div>
+<div class="card" onclick="parent.openGame('Pizza Tower','Pizza tower.html')"><img src="Pizza tower.png"><div class="overlay"><div class="text"><div class="title">PIZZA TOWER</div></div></div></div>
+<div class="card" onclick="parent.openGame('Bad Parenting','Badparenting.html')"><img src="Badparenting.png"><div class="overlay"><div class="text"><div class="title">BAD PARENTING</div></div></div></div>
+<div class="card" onclick="parent.openGame(`That's Not My Neighbor`,'Notmyneighbor.html')"><img src="Notmyneighbor.png"><div class="overlay"><div class="text"><div class="title">THAT’S NOT MY NEIGHBOR</div></div></div></div>
+<div class="card" onclick="parent.openGame('Minecraft 1.8.8','Minecraft8.html')"><img src="Minecraft8.png"><div class="overlay"><div class="text"><div class="title">MINECRAFT 1.8.8</div></div></div></div>
+<div class="card" onclick="parent.openGame('A Dance of Fire and Ice','Adofai.html')"><img src="Adofai.png"><div class="overlay"><div class="text"><div class="title">A DANCE OF FIRE & ICE</div></div></div></div>
+<div class="card" onclick="parent.openGame('UNDERTALE','Undertale.html')"><img src="Undertale.gif"><div class="overlay"><div class="text"><div class="title">UNDERTALE</div></div></div></div>
+
+</div>
+
+</body>
+</html>

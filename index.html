@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AMETHYST</title>
+  <meta name="description" content=""/>
+  <meta name="author" content="Le le"/>
+  <meta name="publisher" content="Le le"/>
+  <meta name="language" content="en"/>
+  <meta http-equiv="Content-Language" content="en"/>
+  <meta name="robots" content="index, follow"/>
+  <meta name="theme-color" content="#9E49B3"/>
+  <meta name="msapplication-TileColor" content="#9E49B3"/>
+  <meta name="msapplication-TileImage" content="/image/logo.png"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="AMETHYST -"/>
+  <meta property="og:description" content=""/>
+  <meta property="og:site_name" content="AMETHYST -"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:image" content="/image/logo.png"/>
+  <meta property="og:image:type" content="image/png"/>
+  <meta property="og:image:width" content="512"/>
+  <meta property="og:image:height" content="512"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="AMETHYST"/>
+  <meta name="twitter:description" content=""/>
+  <meta name="twitter:image" content="/image/logo.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/image/logo.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/logo.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="/image/logo.png"/>
+  <meta name="color-scheme" content="dark light"/>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+  <meta name="viewport-fit" content="cover"/>
+  <meta name="theme" content="dark"/>
+  <meta name="rating" content="general"/>
+  <meta name="HandheldFriendly" content="true"/>
+  <meta name="apple-mobile-web-app-title" content="AMETHYST"/>
+  <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%}
+  body{
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+    background:#03000a;
+    color:#f5f3ff;
+    overflow:hidden;
+  }
+  .bg{position:fixed;inset:0;background:
+    radial-gradient(circle at 20% 10%,#a855f744,transparent 45%),
+    radial-gradient(circle at 85% 80%,#7c3aed55,transparent 55%),
+    radial-gradient(circle at 50% 120%,#2e106577,transparent 60%),
+    linear-gradient(180deg,#020006,#050012);z-index:0}
+  canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:42px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(10,3,25,.67);backdrop-filter:blur(14px);
+    z-index:60;letter-spacing:.4em;font-weight:800;
+  }
+  .desktop{
+    position:absolute;top:42px;left:0;right:0;bottom:48px;
+    padding:28px;display:grid;grid-template-columns:repeat(auto-fill,88px);
+    grid-auto-rows:110px;gap:20px;overflow:auto;z-index:10;
+  }
+  .icon{cursor:pointer;text-align:center;user-select:none}
+  .icon .ico{
+    width:64px;height:64px;margin:auto;border-radius:14px;
+    background:linear-gradient(180deg,rgba(124,58,237,.18),rgba(124,58,237,.08));
+    display:flex;align-items:center;justify-content:center;font-size:20px;
+    box-shadow:inset 0 0 30px rgba(124,58,237,.08);
+  }
+  .icon span{display:block;margin-top:8px;font-size:.73rem;letter-spacing:.18em}
+  .window{
+    position:absolute;
+    background:rgba(18,6,38,.94);
+    backdrop-filter:blur(16px);
+    border-radius:16px;
+    box-shadow:0 36px 100px rgba(0,0,0,.7);
+    display:flex;flex-direction:column;overflow:hidden;
+    min-width:260px;min-height:140px;
+    touch-action:none;z-index:20;
+  }
+  .window.maximized{
+    position:fixed!important;left:0!important;right:0!important;
+    top:42px!important;height:calc(100% - 90px)!important;border-radius:10px!important;
+  }
+  .win-header{
+    height:42px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 12px;cursor:grab;user-select:none;
+  }
+  .win-header:active{cursor:grabbing}
+  .win-title{font-size:.74rem;letter-spacing:.28em}
+  .controls{display:flex;gap:8px;align-items:center}
+  .ctrl{width:12px;height:12px;border-radius:50%}
+  .close{background:#ef4444}
+  .min{background:#facc15}
+  .max{background:#22c55e}
+  .win-body{flex:1;min-height:0;z-index:0}
+  .win-body iframe{width:100%;height:100%;border:0;display:block}
+  .resize-handle{position:absolute;background:transparent;z-index:20}
+  .handle-n{top:-6px;left:8px;right:8px;height:12px;cursor:n-resize}
+  .handle-s{bottom:-6px;left:8px;right:8px;height:12px;cursor:s-resize}
+  .handle-e{top:8px;right:-6px;bottom:8px;width:12px;cursor:e-resize}
+  .handle-w{top:8px;left:-6px;bottom:8px;width:12px;cursor:w-resize}
+  .handle-ne{right:-6px;top:-6px;width:12px;height:12px;cursor:ne-resize}
+  .handle-nw{left:-6px;top:-6px;width:12px;height:12px;cursor:nw-resize}
+  .handle-se{right:-6px;bottom:-6px;width:12px;height:12px;cursor:se-resize}
+  .handle-sw{left:-6px;bottom:-6px;width:12px;height:12px;cursor:sw-resize}
+  .taskbar{
+    position:fixed;bottom:0;left:0;right:0;height:48px;
+    display:flex;gap:8px;padding:6px 12px;align-items:center;
+    background:rgba(8,3,20,.72);backdrop-filter:blur(16px);z-index:70;
+  }
+  .task{
+    width:30px;height:30px;border-radius:8px;
+    background:rgba(124,58,237,.34);display:flex;align-items:center;justify-content:center;
+    cursor:pointer;flex:0 0 auto;overflow:hidden;
+  }
+  .task img{width:18px;height:18px;border-radius:4px;display:block}
+  .task[title]{position:relative}
+  .task[title]:hover::after{
+    content:attr(title);position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+    background:rgba(0,0,0,.78);padding:6px 8px;border-radius:6px;font-size:.72rem;color:#fff;white-space:nowrap;
+  }
+  .toast{
+    position:fixed;right:28px;bottom:70px;padding:10px 14px;border-radius:10px;
+    background:linear-gradient(135deg,#7c3aed,#c084fc);color:#fff;font-size:.85rem;
+    box-shadow:0 20px 60px rgba(0,0,0,.6);z-index:999;opacity:0;transform:translateY(10px);transition:.28s;
+  }
+  .toast.show{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+  <div class="bg"></div>
+  <canvas id="particles"></canvas>
+  <div class="topbar">AMETHYST</div>
+  <div class="desktop" id="desktop">
+    <div class="icon" data-url="apps.html" data-name="App Store">
+      <div class="ico"><i class="fa-solid fa-layer-group"></i></div>
+      <span>APP STORE</span>
+    </div>
+    <div class="icon" data-url="games.html" data-name="Game Store">
+      <div class="ico"><i class="fa-solid fa-gamepad"></i></div>
+      <span>GAME STORE</span>
+    </div>
+  </div>
+  <div class="taskbar" id="taskbar"></div>
+  <div class="toast" id="toast">Installed</div>
+
+<script>
+const TOPBAR_H = 42
+const TASKBAR_H = 48
+const MIN_W = 260
+const MIN_H = 140
+let zIndex = 1000
+const openWindows = new Map()
+
+function getFavicon(url){
+  try{
+    const u = new URL(url, location.href)
+    if(u.hostname && u.hostname !== location.hostname){
+      return `https://www.google.com/s2/favicons?domain=${u.hostname}&sz=128`
+    }
+    return '/image/logo.png'
+  }catch(e){
+    return '/image/logo.png'
+  }
+}
+
+function clampWindow(win){
+  const vw = window.innerWidth
+  const vh = window.innerHeight
+  const rect = win.getBoundingClientRect()
+  let w = Math.max(MIN_W, Math.min(rect.width, vw))
+  let h = Math.max(MIN_H, Math.min(rect.height, vh - TOPBAR_H - TASKBAR_H))
+  let left = Math.max(0, Math.min(rect.left, vw - w))
+  let top = Math.max(TOPBAR_H, Math.min(rect.top, vh - TASKBAR_H - h))
+  win.style.width = w + 'px'
+  win.style.height = h + 'px'
+  win.style.left = left + 'px'
+  win.style.top = top + 'px'
+}
+
+function createTaskButton(id, title, iconSrc, onClick){
+  const taskbar = document.getElementById('taskbar')
+  const t = document.createElement('div')
+  t.className = 'task'
+  t.title = title
+  t.dataset.wid = id
+  const img = document.createElement('img')
+  img.src = iconSrc
+  img.alt = title
+  t.appendChild(img)
+  t.addEventListener('click', onClick)
+  taskbar.appendChild(t)
+  return t
+}
+
+function openWindow(title, url, x=100, y=100){
+  const id = url
+  if(openWindows.has(id)){
+    const existing = openWindows.get(id)
+    existing.style.display = 'flex'
+    existing.style.zIndex = ++zIndex
+    return existing
+  }
+
+  const fav = getFavicon(url)
+  const win = document.createElement('div')
+  win.className = 'window'
+  win.style.zIndex = ++zIndex
+
+  const initialW = Math.max(MIN_W, Math.round(window.innerWidth * 0.56))
+  const initialH = Math.max(MIN_H, Math.round((window.innerHeight - TOPBAR_H - TASKBAR_H) * 0.62))
+  let left = x
+  let top = y
+  if(left + initialW > window.innerWidth - 12) left = Math.max(12, window.innerWidth - initialW - 12)
+  if(top + initialH > window.innerHeight - TASKBAR_H - 12) top = Math.max(TOPBAR_H + 12, window.innerHeight - TASKBAR_H - initialH - 12)
+  win.style.left = left + 'px'
+  win.style.top = top + 'px'
+  win.style.width = initialW + 'px'
+  win.style.height = initialH + 'px'
+
+  win.innerHTML = `
+    <div class="win-header">
+      <div class="win-title">${title}</div>
+      <div class="controls">
+        <div class="ctrl min" title="Minimize"></div>
+        <div class="ctrl max" title="Maximize/Restore"></div>
+        <div class="ctrl close" title="Close"></div>
+      </div>
+    </div>
+    <div class="win-body"><iframe src="${url}" allow="fullscreen"></iframe></div>
+  `
+
+  const directions = ['n','s','e','w','ne','nw','se','sw']
+  directions.forEach(d=>{
+    const el = document.createElement('div')
+    el.className = `resize-handle handle-${d}`
+    el.dataset.dir = d
+    win.appendChild(el)
+  })
+
+  document.body.appendChild(win)
+
+  const taskBtn = createTaskButton(id, title, fav, ()=>{
+    if(win.style.display === 'none'){
+      win.style.display = 'flex'
+    }
+    win.style.zIndex = ++zIndex
+  })
+
+  const closeBtn = win.querySelector('.close')
+  const minBtn = win.querySelector('.min')
+  const maxBtn = win.querySelector('.max')
+
+  closeBtn.addEventListener('click', ()=>{
+    openWindows.delete(id)
+    win.remove()
+    taskBtn.remove()
+  })
+  minBtn.addEventListener('click', ()=> win.style.display = 'none')
+  maxBtn.addEventListener('click', ()=>{
+    if(win.classList.contains('maximized')){
+      const prev = win._restoreRect
+      if(prev){
+        win.classList.remove('maximized')
+        win.style.position = 'absolute'
+        win.style.left = prev.left + 'px'
+        win.style.top = prev.top + 'px'
+        win.style.width = prev.width + 'px'
+        win.style.height = prev.height + 'px'
+        delete win._restoreRect
+      }
+    } else {
+      const r = win.getBoundingClientRect()
+      win._restoreRect = {left: r.left, top: r.top, width: r.width, height: r.height}
+      win.classList.add('maximized')
+      win.style.position = 'fixed'
+      win.style.left = '0px'
+      win.style.top = TOPBAR_H + 'px'
+      win.style.width = '100%'
+      win.style.height = `calc(100% - ${TOPBAR_H + TASKBAR_H}px)`
+    }
+    win.style.zIndex = ++zIndex
+  })
+
+  win.addEventListener('mousedown', ()=> win.style.zIndex = ++zIndex)
+
+  makeDraggable(win)
+  makeResizable(win)
+  clampWindow(win)
+  openWindows.set(id, win)
+  return win
+}
+
+function makeDraggable(win){
+  const header = win.querySelector('.win-header')
+  let dragging=false, offsetX=0, offsetY=0, rect=null
+  header.addEventListener('mousedown', e=>{
+    if(win.classList.contains('maximized')) return
+    dragging=true
+    rect=win.getBoundingClientRect()
+    offsetX=e.clientX - rect.left
+    offsetY=e.clientY - rect.top
+    document.body.style.userSelect='none'
+    const onMove=ev=>{
+      if(!dragging) return
+      let nx=ev.clientX-offsetX
+      let ny=ev.clientY-offsetY
+      const vw=window.innerWidth, vh=window.innerHeight
+      const w=rect.width, h=rect.height
+      nx=Math.max(0, Math.min(nx, vw-w))
+      ny=Math.max(TOPBAR_H, Math.min(ny, vh-TASKBAR_H-h))
+      win.style.left=nx+'px'
+      win.style.top=ny+'px'
+    }
+    const onUp=()=>{
+      dragging=false
+      document.removeEventListener('mousemove', onMove)
+      document.removeEventListener('mouseup', onUp)
+      document.body.style.userSelect=''
+      clampWindow(win)
+    }
+    document.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseup', onUp)
+  })
+}
+
+function makeResizable(win){
+  let active=false, dir=null, startX=0, startY=0, startRect=null
+  function onDown(e){
+    const handle=e.target.closest('.resize-handle')
+    if(!handle) return
+    e.preventDefault()
+    active=true
+    dir=handle.dataset.dir
+    const r=win.getBoundingClientRect()
+    startRect={left:r.left, top:r.top, width:r.width, height:r.height}
+    startX=e.clientX; startY=e.clientY
+    document.body.style.userSelect='none'
+    function onMove(ev){
+      if(!active) return
+      const dx=ev.clientX-startX, dy=ev.clientY-startY
+      let newLeft=startRect.left, newTop=startRect.top, newW=startRect.width, newH=startRect.height
+      const vw=window.innerWidth, vh=window.innerHeight
+      const maxW=vw, maxH=vh-TOPBAR_H-TASKBAR_H
+      if(dir.includes('e')) newW=startRect.width+dx
+      if(dir.includes('s')) newH=startRect.height+dy
+      if(dir.includes('w')){ newW=startRect.width-dx; newLeft=startRect.left+dx }
+      if(dir.includes('n')){ newH=startRect.height-dy; newTop=startRect.top+dy }
+      newW=Math.max(MIN_W, Math.min(newW, maxW))
+      newH=Math.max(MIN_H, Math.min(newH, maxH))
+      newLeft=Math.max(0, Math.min(newLeft, vw-newW))
+      newTop=Math.max(TOPBAR_H, Math.min(newTop, vh-TASKBAR_H-newH))
+      win.style.left=newLeft+'px'
+      win.style.top=newTop+'px'
+      win.style.width=newW+'px'
+      win.style.height=newH+'px'
+    }
+    function onUp(){
+      active=false; dir=null
+      document.removeEventListener('mousemove', onMove)
+      document.removeEventListener('mouseup', onUp)
+      document.body.style.userSelect=''
+      clampWindow(win)
+    }
+    document.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseup', onUp)
+  }
+  win.addEventListener('mousedown', onDown)
+}
+
+document.querySelectorAll('.desktop .icon').forEach(icon=>{
+  icon.addEventListener('click', ()=>{
+    const url = icon.dataset.url
+    const name = icon.dataset.name || url
+    const rect = icon.getBoundingClientRect()
+    openWindow(name.toUpperCase(), url, Math.round(rect.left), Math.round(rect.top))
+  })
+})
+
+window.addEventListener('resize', ()=>{
+  document.querySelectorAll('.window').forEach(win=>{
+    if(win.classList.contains('maximized')){
+      win.style.height = `calc(100% - ${TOPBAR_H + TASKBAR_H}px)`
+      win.style.top = TOPBAR_H + 'px'
+    } else {
+      clampWindow(win)
+    }
+  })
+})
+
+function showToast(text){
+  const t=document.getElementById('toast')
+  t.textContent=text
+  t.classList.add('show')
+  setTimeout(()=>t.classList.remove('show'),1500)
+}
+
+const canvas=document.getElementById("particles"),ctx=canvas.getContext("2d")
+function resizeCanvas(){canvas.width=innerWidth;canvas.height=innerHeight}
+resizeCanvas()
+addEventListener("resize",resizeCanvas)
+const particles=[]
+for(let i=0;i<380;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*1.6+0.6,
+    v:Math.random()*0.6+0.2,
+    alpha:Math.random()*0.6+0.2
+  })
+}
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height)
+  for(let p of particles){
+    p.y+=p.v
+    if(p.y-p.r>canvas.height) p.y=-p.r
+    ctx.beginPath()
+    ctx.globalAlpha=p.alpha
+    ctx.fillStyle="#d8b4fe"
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+    ctx.fill()
+  }
+  ctx.globalAlpha=1
+  requestAnimationFrame(draw)
+}
+draw()
+
+const STORAGE_KEY="amethyst-os-apps"
+let installed=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}")
+const desktop=document.getElementById("desktop")
+
+function favicon(url){
+  try{return `https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=128`}
+  catch(e){return "https://via.placeholder.com/34"}
+}
+
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(installed))}
+
+function createIcon(app){
+  if(document.querySelector(`[data-app="${app.url}"]`)) return
+  const icon=document.createElement("div")
+  icon.className="icon"
+  icon.dataset.app=app.url
+  icon.innerHTML=`
+    <div><img src="${favicon(app.url)}" width="34"></div>
+    <span>${app.name.toUpperCase()}</span>
+  `
+  icon.onclick = () => openWindow(app.name, `/s/embed.html#${app.url}`)
+  desktop.appendChild(icon)
+}
+
+Object.values(installed).forEach(createIcon)
+
+window.addEventListener("message", e=>{
+  if(e.data?.type!=="install-app") return
+  if(installed[e.data.url]) return
+
+  installed[e.data.url]={name:e.data.name,url:e.data.url}
+  save()
+  createIcon(installed[e.data.url])
+
+  showToast("DOWNLOADED!")
+})
+
+
+function openAppsWindow(){openWindow("App store","apps.html")}
+function openGamesWindow(){openWindow("Game store","games.html")}
+</script>
+
+</body>
+</html>
